@@ -1,0 +1,42 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"{{PROJECT_DIR}}\\.claude\\scripts\\archive-pending.ps1\"",
+            "timeout": 60
+          },
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"{{PROJECT_DIR}}\\.claude\\scripts\\load-last-chat.ps1\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"{{PROJECT_DIR}}\\.claude\\scripts\\auto-save.ps1\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"{{PROJECT_DIR}}\\.claude\\scripts\\archive-pending.ps1\"",
+            "timeout": 60
+          }
+        ]
+      }
+    ]
+  }
+}
