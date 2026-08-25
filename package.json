@@ -1,0 +1,33 @@
+{
+  "name": "remember-memory",
+  "version": "1.0.0",
+  "description": "Lossless persistent memory for Claude Code — write-through journaling, watermark + content-hash dedup, session-start injection. / Claude Code 跨会话持久记忆系统。",
+  "license": "MIT",
+  "bin": {
+    "remember-memory": "bin/install.js"
+  },
+  "files": [
+    "bin",
+    "hooks",
+    "SKILL.md",
+    "remember.config.example.json",
+    "settings.example.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "claude-code",
+    "memory",
+    "hooks",
+    "powershell",
+    "persistent-memory",
+    "claude"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rinademao/remember-memory.git"
+  }
+}

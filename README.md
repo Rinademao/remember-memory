@@ -16,6 +16,7 @@
 
 - Claude Code
 - Windows PowerShell 5.1+ 或 PowerShell 7（`powershell` / `pwsh`）
+- npx 安装方式需要 Node.js 18+（仅安装时需要，运行不需要）
 - 零依赖、无需 API Key
 
 ## 工作原理
@@ -36,13 +37,25 @@
 
 ## 安装
 
-### 项目内安装（推荐）
+### 一行命令（npx，推荐）
+
+在你想安装的项目目录里执行：
+
+```bash
+npx -y remember-memory -p "你的助手名"
+```
+
+- 默认装进当前目录；`-d <路径>` 指定其他项目；`--no-settings` 只复制文件、不改配置
+- 会复制钩子到 `.claude\scripts\`、skill 到 `.claude\skills\remember\`、写入 `remember.config.json`，并把 SessionStart/Stop/SessionEnd 钩子合并进 `.claude\settings.local.json`（先做 `.bak-时间戳` 备份）
+- 安装只需要 Node.js 18+，运行完全靠 Windows PowerShell，无其他依赖
+
+### 或者用 PowerShell 脚本（零 Node 依赖）
 
 ```powershell
 .\install.ps1 -ProjectDir D:\path\to\your\project -PersonaName "你的助手名" -ApplySettings
 ```
 
-脚本会把钩子复制到 `<项目>\.claude\scripts\`、把 skill 复制到 `<项目>\.claude\skills\remember\`、写入 `remember.config.json`，并在加 `-ApplySettings` 时把 SessionStart/Stop/SessionEnd 钩子合并进 `<项目>\.claude\settings.local.json`（会先做 `.bak-时间戳` 备份）。不带 `-ApplySettings` 则只打印需要手动粘贴的配置片段。
+功能同上；不带 `-ApplySettings` 则只打印需要手动粘贴的配置片段。
 
 改完重启该项目的 Claude Code，下一个新会话就会自动注入记忆。
 
