@@ -28,6 +28,6 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Rinademao/remember-memory.git"
+    "url": "git+https://github.com/Rinademao/remember-memory.git"
   }
 }
