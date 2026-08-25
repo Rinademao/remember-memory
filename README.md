@@ -37,25 +37,32 @@
 
 ## 安装
 
-### 一行命令（npx，推荐）
+### 直接让 Agent 装（推荐，零配置）
 
-在你想安装的项目目录里执行：
+在 Claude Code、Codex 等支持 Agent Skills 的工具里，直接说：
 
-```bash
-npx -y remember-memory -p "你的助手名"
+```
+帮我安装这个 skill：https://github.com/Rinademao/remember-memory
 ```
 
-- 默认装进当前目录；`-d <路径>` 指定其他项目；`--no-settings` 只复制文件、不改配置
-- 会复制钩子到 `.claude\scripts\`、skill 到 `.claude\skills\remember\`、写入 `remember.config.json`，并把 SessionStart/Stop/SessionEnd 钩子合并进 `.claude\settings.local.json`（先做 `.bak-时间戳` 备份）
-- 安装只需要 Node.js 18+，运行完全靠 Windows PowerShell，无其他依赖
+Agent 会把整个 skill（SKILL.md + hooks 脚本）装进对应的技能目录，不用管路径。
 
-### 或者用 PowerShell 脚本（零 Node 依赖）
+装好之后，在项目里启用记忆（挂上 SessionStart/Stop/SessionEnd 钩子）二选一：
+
+- 在项目目录跑：`npx -y remember-memory -p "你的助手名"`（需要 Node.js 18+，仅安装时需要）
+- 或下载本仓库后跑：`.\install.ps1 -ProjectDir <项目路径> -PersonaName "你的助手名" -ApplySettings`（零 Node 依赖）
+
+两者都会复制钩子到 `.claude\scripts\`、skill 到 `.claude\skills\remember\`、写入 `remember.config.json`，并把钩子合并进 `.claude\settings.local.json`（先做 `.bak-时间戳` 备份）。
+
+### 手动安装
 
 ```powershell
-.\install.ps1 -ProjectDir D:\path\to\your\project -PersonaName "你的助手名" -ApplySettings
+git clone https://github.com/Rinademao/remember-memory.git
+Copy-Item remember-memory\hooks\*.ps1 <项目>\.claude\scripts\
+Copy-Item remember-memory\SKILL.md <项目>\.claude\skills\remember\
 ```
 
-功能同上；不带 `-ApplySettings` 则只打印需要手动粘贴的配置片段。
+再按 `settings.example.json` 把钩子配置合并进 `<项目>\.claude\settings.local.json`（`{{PROJECT_DIR}}` 换成项目绝对路径）。
 
 改完重启该项目的 Claude Code，下一个新会话就会自动注入记忆。
 
